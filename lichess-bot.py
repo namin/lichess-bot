@@ -1,7 +1,7 @@
 import argparse
 import chess
-#from chess.variant import find_variant
-#import chess.polyglot
+from chess.variant import find_variant
+import chess.polyglot
 import engine_wrapper
 import model
 import json
@@ -139,8 +139,8 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     logger.info("+++ {}".format(game))
 
     engine_cfg = config["engine"]
-    polyglot_cfg = {}#engine_cfg.get("polyglot", {})
-    book_cfg = {}#polyglot_cfg.get("book", {})
+    polyglot_cfg = engine_cfg.get("polyglot", {})
+    book_cfg = polyglot_cfg.get("book", {})
 
     try:
         if not polyglot_cfg.get("enabled") or not play_first_book_move(game, engine, board, li, book_cfg):
