@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#SBATCH -n 1
+#SBATCH -t 15
+#SBATCH -p gpu 
+#SBATCH --gres=gpu:1
+#SBATCH --gpu-freq=high
+#SBATCH --mem=16000
+#SBATCH -o bot.out
+#SBATCH -e bot.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=namin@seas.harvard.edu
+
+module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
+module load Anaconda3/2019.10
+
+cd $SCRATCH/amin_lab/Users/namin/envs
+source activate ./my
+
+cd ..
+cd alpha-zero-general
+export PYTHONPATH=`pwd`
+cd ..
+cd lichess-bot
+
+python lichess-bot.py
